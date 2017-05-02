@@ -81,3 +81,4 @@ pygame.quit()
 
 #hello
 #hej det her er noget fis
+#hvad med nu
