@@ -77,3 +77,6 @@ pygame.quit()
 #hej jasmina
 #heheheh
 #ehehehe
+#hej nicolai
+
+#hello
