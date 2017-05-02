@@ -74,3 +74,6 @@ while not done:
     print(speed)
 # Close the window and quit.
 pygame.quit()
+#hej jasmina
+#heheheh
+#ehehehe
