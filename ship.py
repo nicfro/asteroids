@@ -5,7 +5,3 @@ class ship:
         self.hitpoints = hitpoints
         self.acceleration = 0
         self.orientation = 0
-
-    
-
-    
