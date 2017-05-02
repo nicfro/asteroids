@@ -1,6 +1,7 @@
 import pygame
 import numpy as np
 import math
+from ship import ship
  
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -12,7 +13,7 @@ pygame.init()
 # Set the width and height of the screen [width, height]
 size = [600, 400]
 screen = pygame.display.set_mode(size)
- 
+
 pygame.display.set_caption("My Game")
  
 done = False
@@ -20,17 +21,21 @@ done = False
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
+spriteImage = "sprite.png"
 # Starting position of the spaceship
-pos = [100,100]
- 
-# Speed and direction of spaceship
-a = 0
-theta = 0
+pos = np.asarray([100.0,100.0])
+hp = 100
+acc = 0
+orientation = 0
+vel = np.asarray([0,0])
+speed = 0
+sprite = pygame.image.load(spriteImage).convert()
+rotSprite =  pygame.sprite.Sprite()
+rotSprite.image = pygame.image.load(spriteImage).convert()
 
-v = np.asarray([0,0])
-b = pygame.sprite.Sprite() 
-savedImage = pygame.image.load("sprite.png").convert()
-b.image = pygame.image.load("sprite.png").convert()
+
+ship = ship(pos, hp, acc, orientation, vel, speed, sprite, 
+            rotSprite)
 
 pygame.key.set_repeat(10,10)
 # -------- Main Program Loop -----------
@@ -41,38 +46,27 @@ while not done:
             done = True
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                    a += 0.1
+                ship.acceleration += 0.1
+                ship.updateShipAcceleration(size)          
             if event.key == pygame.K_DOWN:
-                    a -= 0.1
+                ship.acceleration -= 0.1
+                ship.updateShipAcceleration(size)
             if event.key == pygame.K_LEFT:
-                theta -= 0.1 % (2*math.pi)    
+                ship.orientation -= 0.1 % (2*math.pi)
+                ship.updateShipRotation(size)    
             if event.key == pygame.K_RIGHT:
-                theta += 0.1 % (2*math.pi)
+                ship.orientation += 0.1 % (2*math.pi)
+                ship.updateShipRotation(size)
                 
-
+    
+    ship.updateShip(size)
     screen.fill(BLACK)
-
-    b.rect = pos
-
-    rotationVector = np.asarray([np.cos(theta), np.sin(theta)])
-    imageRot = np.arctan2(rotationVector[0], rotationVector[1])
-    
-    b.image = pygame.transform.rotate(savedImage, math.degrees(imageRot))
-    screen.blit(b.image, b.rect)
-
-    v = a*rotationVector
-    
-    speed = np.linalg.norm(v)
-    
-    pos += v
-    pos %= size
-
+    screen.blit(ship.rotateSprite.image, ship.rotateSprite.rect)
+    #screen.blit(,ship.rotateSprite.rect)
     pygame.display.flip()
- 
+    
     # --- Limit to 60 frames per second
     clock.tick(60)
-    print(speed)
+
 # Close the window and quit.
 pygame.quit()
-
-#hejda
