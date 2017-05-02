@@ -77,3 +77,4 @@ pygame.quit()
 #hej jasmina
 #heheheh
 #ehehehe
+#dette er endnu en test kl 9:24
