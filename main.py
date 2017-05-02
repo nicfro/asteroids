@@ -20,10 +20,10 @@ done = False
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
-# Starting position of the rectangle
+# Starting position of the spaceship
 pos = [100,100]
  
-# Speed and direction of rectangle
+# Speed and direction of spaceship
 a = 0
 theta = 0
 
@@ -74,10 +74,4 @@ while not done:
     print(speed)
 # Close the window and quit.
 pygame.quit()
-#hej jasmina
-#heheheh
-#ehehehe
-#hej nicolai
 
-#hello
-#hej det her er noget fis
