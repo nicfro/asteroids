@@ -26,7 +26,7 @@ class ship:
     													  math.degrees(imageRot))
 
     def accelerateShip(self):
-    	self.velocity = self.acceleration*self.rotationVector
+    	self.velocity += self.acceleration*self.rotationVector
     	self.speed = np.linalg.norm(self.velocity)
 
     def updatePosition(self, size):
@@ -35,21 +35,6 @@ class ship:
 
     def updateShip(self, size):
     	self.rotateSprite.rect = self.position
-    	self.updatePosition(size)
-
-    def updateShipAcceleration(self, size):
-    	self.rotateSprite.rect = self.position
     	self.accelerateShip()
-    	self.updatePosition(size)  
-
-
-    def updateShipRotation(self, size):
-    	self.rotateSprite.rect = self.position
     	self.rotateShip()
     	self.updatePosition(size)
-
-#    def updateShip(self, size):
-#    	self.rotateSprite.rect = self.position
-#    	self.rotateShip()
-#    	self.accelerateShip()
-#    	self.updatePosition(size)

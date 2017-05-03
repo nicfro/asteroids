@@ -21,13 +21,13 @@ done = False
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
-spriteImage = "sprite.png"
+spriteImage = "ship.png"
 # Starting position of the spaceship
 pos = np.asarray([100.0,100.0])
 hp = 100
 acc = 0
 orientation = 0
-vel = np.asarray([0,0])
+vel = np.asarray([0.0,0.0])
 speed = 0
 sprite = pygame.image.load(spriteImage).convert()
 rotSprite =  pygame.sprite.Sprite()
@@ -37,7 +37,7 @@ rotSprite.image = pygame.image.load(spriteImage).convert()
 ship = ship(pos, hp, acc, orientation, vel, speed, sprite, 
             rotSprite)
 
-pygame.key.set_repeat(10,10)
+pygame.key.set_repeat(1,10)
 # -------- Main Program Loop -----------
 while not done:
     # --- Main event loop
@@ -46,23 +46,19 @@ while not done:
             done = True
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                ship.acceleration += 0.1
-                ship.updateShipAcceleration(size)          
-            if event.key == pygame.K_DOWN:
-                ship.acceleration -= 0.1
-                ship.updateShipAcceleration(size)
+                ship.acceleration = 0.1      
             if event.key == pygame.K_LEFT:
                 ship.orientation -= 0.1 % (2*math.pi)
-                ship.updateShipRotation(size)    
             if event.key == pygame.K_RIGHT:
                 ship.orientation += 0.1 % (2*math.pi)
-                ship.updateShipRotation(size)
-                
+        elif event.type == pygame.KEYUP and event.key == pygame.K_UP:
+            ship.acceleration = 0
+
     
     ship.updateShip(size)
+
     screen.fill(BLACK)
     screen.blit(ship.rotateSprite.image, ship.rotateSprite.rect)
-    #screen.blit(,ship.rotateSprite.rect)
     pygame.display.flip()
     
     # --- Limit to 60 frames per second
