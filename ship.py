@@ -9,6 +9,7 @@ class ship(entity):
     #def __init__(self, position, hitpoints, acceleration, orientation,
     # 			 velocity, speed, sprite, rotateSprite):
         self.hitpoints = hitpoints
+
         super(ship, self).__init__(position, acceleration, orientation,
                                    velocity, speed, sprite, rotateSprite)
 
@@ -51,3 +52,4 @@ class ship(entity):
     	self.rotateShip()
     	self.updatePosition(size)
     '''
+
