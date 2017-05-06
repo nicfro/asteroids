@@ -1,6 +1,6 @@
 import numpy as np
 import pygame
-from movement import entity
+from entity import entity
 import math
 
 class ship(entity):
