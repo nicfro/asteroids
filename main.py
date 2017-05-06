@@ -56,13 +56,13 @@ while not done:
 
     
     ship.update(size)
-
+    print(ship.speed)
     screen.fill(BLACK)
     screen.blit(ship.rotateSprite.image, ship.rotateSprite.rect)
     pygame.display.flip()
     
     # --- Limit to 60 frames per second
-    clock.tick(60)
+    clock.tick(100)
 
 # Close the window and quit.
 pygame.quit()

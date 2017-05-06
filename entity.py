@@ -25,8 +25,12 @@ class entity(object):
     													  math.degrees(imageRot))
 
     def accelerate(self):
-    	self.velocity += self.acceleration*self.rotationVector
-    	self.speed = np.linalg.norm(self.velocity)
+        #checking for speed limit
+        tempVelocity = self.velocity + (self.acceleration*self.rotationVector)
+        if np.linalg.norm(tempVelocity) < 10:
+            #updating velocity and speed
+        	self.velocity += self.acceleration*self.rotationVector
+        	self.speed = np.linalg.norm(self.velocity)
 
     def updatePosition(self, size):
     	self.position += self.velocity

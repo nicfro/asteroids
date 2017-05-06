@@ -1,7 +1,4 @@
-import numpy as np
-import pygame
 from entity import entity
-import math
 
 class ship(entity):
     def __init__(self, hitpoints, position, acceleration, orientation,
