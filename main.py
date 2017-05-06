@@ -14,7 +14,7 @@ pygame.init()
 size = [600, 400]
 screen = pygame.display.set_mode(size)
 
-pygame.display.set_caption("My Game")
+pygame.display.set_caption("Nicomina")
  
 done = False
  
@@ -32,7 +32,6 @@ speed = 0
 sprite = pygame.image.load(spriteImage).convert()
 rotSprite =  pygame.sprite.Sprite()
 rotSprite.image = pygame.image.load(spriteImage).convert()
-
 
 ship = ship(hp, pos, acc, orientation, vel, speed, sprite, 
             rotSprite)
@@ -56,8 +55,8 @@ while not done:
 
     
     ship.update(size)
-    print(ship.speed)
     screen.fill(BLACK)
+
     screen.blit(ship.rotateSprite.image, ship.rotateSprite.rect)
     pygame.display.flip()
     
