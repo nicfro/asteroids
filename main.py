@@ -21,7 +21,7 @@ done = False
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
-spriteImage = "ship.png"
+spriteImage = "shipLong4.png"
 # Starting position of the spaceship
 pos = np.asarray([100.0,100.0])
 hp = 100
