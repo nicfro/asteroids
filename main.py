@@ -44,7 +44,8 @@ bulletRotSprite = pygame.sprite.Sprite()
 bulletRotSprite.image = pygame.image.load(bulletImage).convert()
 
 bulletList = []
-pygame.key.set_repeat(10,2)
+counter = 0
+#pygame.key.set_repeat(10,2)
 # -------- Main Program Loop -----------
 while not done:
     # --- Main event loop
@@ -58,16 +59,27 @@ while not done:
                 ship.orientation -= 0.1 % (2*math.pi)
             if event.key == pygame.K_RIGHT:
                 ship.orientation += 0.1 % (2*math.pi)
+            '''
             if event.key == pygame.K_SPACE:
                 tempPos = copy.copy(ship.position)
                 tempOri = copy.copy(ship.orientation)
                 tempVel = 12 * np.asarray([np.cos(tempOri), np.sin(tempOri)])
                 bulletList.append(bullet(tempPos, 0, tempOri, tempVel, 12, bulletSprite, 
                                   bulletRotSprite))
+            '''
         elif event.type == pygame.KEYUP and event.key == pygame.K_UP:
             ship.acceleration = 0
 
+    keys = pygame.key.get_pressed()
     
+    if keys[pygame.K_SPACE]:
+        print(counter)
+        counter += 1
+        tempPos = copy.copy(ship.position)
+        tempOri = copy.copy(ship.orientation)
+        tempVel = 12 * np.asarray([np.cos(tempOri), np.sin(tempOri)])
+        bulletList.append(bullet(tempPos, 0, tempOri, tempVel, 12, bulletSprite, 
+                          bulletRotSprite))
     ship.update(size)
     screen.fill(BLACK)
 
