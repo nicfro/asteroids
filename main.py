@@ -34,7 +34,7 @@ rotSprite =  pygame.sprite.Sprite()
 rotSprite.image = pygame.image.load(spriteImage).convert()
 
 
-ship = ship(pos, hp, acc, orientation, vel, speed, sprite, 
+ship = ship(hp, pos, acc, orientation, vel, speed, sprite, 
             rotSprite)
 
 pygame.key.set_repeat(1,10)
@@ -55,7 +55,7 @@ while not done:
             ship.acceleration = 0
 
     
-    ship.updateShip(size)
+    ship.update(size)
 
     screen.fill(BLACK)
     screen.blit(ship.rotateSprite.image, ship.rotateSprite.rect)

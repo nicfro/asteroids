@@ -1,12 +1,22 @@
 import numpy as np
 import pygame
+from movement import entity
 import math
 
-class ship:
-    def __init__(self, position, hitpoints, acceleration, orientation,
-    			 velocity, speed, sprite, rotateSprite):
-        self.position = position
+class ship(entity):
+    def __init__(self, hitpoints, position, acceleration, orientation,
+                 velocity, speed, sprite, rotateSprite):
+    #def __init__(self, position, hitpoints, acceleration, orientation,
+    # 			 velocity, speed, sprite, rotateSprite):
         self.hitpoints = hitpoints
+        super(ship, self).__init__(position, acceleration, orientation,
+                                   velocity, speed, sprite, rotateSprite)
+
+        #self.entity = entity(position, acceleration, orientation,
+        #                       velocity, speed, sprite, rotateSprite)
+
+        '''
+        self.position = position
         self.acceleration = acceleration
         self.orientation = orientation
         self.rotationVector = np.asarray([np.cos(orientation), 
@@ -16,7 +26,9 @@ class ship:
         self.sprite = sprite
         self.rotateSprite = rotateSprite
         self.rotateSprite.rect = self.position
+        '''
 
+    '''
     def rotateShip(self):
     	self.rotationVector = np.asarray([np.cos(self.orientation), 
     									 np.sin(self.orientation)])
@@ -38,3 +50,4 @@ class ship:
     	self.accelerateShip()
     	self.rotateShip()
     	self.updatePosition(size)
+    '''
