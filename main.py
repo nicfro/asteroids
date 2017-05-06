@@ -3,6 +3,7 @@ import numpy as np
 import math
 from ship import ship
 from bullet import bullet
+from asteroid import asteroid
 import copy
  
 BLACK = (0, 0, 0)
@@ -13,7 +14,7 @@ RED = (255, 0, 0)
 pygame.init()
  
 # Set the width and height of the screen [width, height]
-size = [600, 400]
+size = [1600, 800]
 screen = pygame.display.set_mode(size)
 
 pygame.display.set_caption("Nicomina")
@@ -25,6 +26,7 @@ clock = pygame.time.Clock()
 
 spriteImage = "shipLong4.png"
 bulletImage = "bullet.png"
+asteroidImage = "asteroid.png"
 # Starting position of the spaceship
 pos = np.asarray([100.0,100.0])
 hp = 100
@@ -39,13 +41,24 @@ shipRotSprite.image = pygame.image.load(spriteImage).convert()
 ship = ship(hp, pos, acc, orientation, vel, speed, shipSprite, 
             shipRotSprite)
 
+
 bulletSprite = pygame.image.load(bulletImage).convert()
 bulletRotSprite = pygame.sprite.Sprite()
 bulletRotSprite.image = pygame.image.load(bulletImage).convert()
 
+asteroidSprite = pygame.image.load(asteroidImage).convert()
+asteroidRotSprite = pygame.sprite.Sprite()
+asteroidRotSprite.image = pygame.image.load(asteroidImage).convert()
 bulletList = []
-counter = 0
-#pygame.key.set_repeat(10,2)
+asteroidList = []
+
+tempPos = copy.copy(ship.position)
+tempOri = copy.copy(ship.orientation)
+asteroidList.append(asteroid(tempPos, 0, tempOri, asteroidSprite, 
+                  asteroidRotSprite))
+
+
+pygame.key.set_repeat(5,100)
 # -------- Main Program Loop -----------
 while not done:
     # --- Main event loop
@@ -56,38 +69,35 @@ while not done:
             if event.key == pygame.K_UP:
                 ship.acceleration = 0.1
             if event.key == pygame.K_LEFT:
-                ship.orientation -= 0.1 % (2*math.pi)
+                ship.orientation -= 0.5 % (2*math.pi)
             if event.key == pygame.K_RIGHT:
-                ship.orientation += 0.1 % (2*math.pi)
-            '''
+                ship.orientation += 0.5 % (2*math.pi)
             if event.key == pygame.K_SPACE:
                 tempPos = copy.copy(ship.position)
                 tempOri = copy.copy(ship.orientation)
-                tempVel = 12 * np.asarray([np.cos(tempOri), np.sin(tempOri)])
-                bulletList.append(bullet(tempPos, 0, tempOri, tempVel, 12, bulletSprite, 
+                bulletList.append(bullet(tempPos, 0, tempOri, bulletSprite, 
                                   bulletRotSprite))
-            '''
         elif event.type == pygame.KEYUP and event.key == pygame.K_UP:
             ship.acceleration = 0
 
-    keys = pygame.key.get_pressed()
-    
-    if keys[pygame.K_SPACE]:
-        print(counter)
-        counter += 1
-        tempPos = copy.copy(ship.position)
-        tempOri = copy.copy(ship.orientation)
-        tempVel = 12 * np.asarray([np.cos(tempOri), np.sin(tempOri)])
-        bulletList.append(bullet(tempPos, 0, tempOri, tempVel, 12, bulletSprite, 
-                          bulletRotSprite))
+
     ship.update(size)
     screen.fill(BLACK)
 
+    bulletList[:] = [b for b in bulletList if (b.timer > 0)]
     if len(bulletList) > 0:
-        for i in range(len(bulletList)):
-            bulletList[i].update(size)
-            screen.blit(bulletList[i].rotateSprite.image, bulletList[i].rotateSprite.rect)
+        for b in bulletList:
+            if b.timer > 0:
+                b.timer-=1
+                b.update(size)
+                screen.blit(b.rotateSprite.image, b.rotateSprite.rect)
 
+    if len(asteroidList) > 0:
+        for a in asteroidList:
+            a.update(size)
+            screen.blit(a.rotateSprite.image, a.rotateSprite.rect)
+           
+    print(len(bulletList))
     screen.blit(ship.rotateSprite.image, ship.rotateSprite.rect)
     pygame.display.flip()
     

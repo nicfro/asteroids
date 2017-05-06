@@ -15,6 +15,7 @@ class entity(object):
         self.sprite = sprite
         self.rotateSprite = rotateSprite
         self.rotateSprite.rect = self.position
+        self.maxSpeed = 7 
 
     def rotate(self):
     	self.rotationVector = np.asarray([np.cos(self.orientation), 
@@ -27,7 +28,7 @@ class entity(object):
     def accelerate(self):
         #checking for speed limit
         tempVelocity = self.velocity + (self.acceleration*self.rotationVector)
-        if np.linalg.norm(tempVelocity) < 10:
+        if np.linalg.norm(tempVelocity) < self.maxSpeed:
             #updating velocity and speed
         	self.velocity += self.acceleration*self.rotationVector
         	self.speed = np.linalg.norm(self.velocity)
