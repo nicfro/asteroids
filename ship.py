@@ -1,7 +1,10 @@
-class ship:
-    def __init__(self, hitpoints):
-        self.x = x
-        self.y = y
+from entity import entity
+
+class ship(entity):
+    def __init__(self, hitpoints, position, acceleration, orientation,
+                 velocity, speed, sprite, rotateSprite):
         self.hitpoints = hitpoints
-        self.acceleration = 0
-        self.orientation = 0
+
+        super(ship, self).__init__(position, acceleration, orientation,
+                                   velocity, speed, sprite, rotateSprite)
+
